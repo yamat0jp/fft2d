@@ -1,0 +1,231 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'BlankForm'
+  ClientHeight = 595
+  ClientWidth = 640
+  FormFactor.Width = 1280
+  FormFactor.Height = 1024
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  DesignerMasterStyle = 0
+  object ToolbarHolder: TLayout
+    Align = Bottom
+    Locked = True
+    Position.Y = 520.000000000000000000
+    Size.Width = 640.000000000000000000
+    Size.Height = 75.000000000000000000
+    Size.PlatformDefault = False
+    Visible = False
+    object ToolbarPopup: TPopup
+      Touch.InteractiveGestures = [Pan]
+      Align = Bottom
+      DragMode = dmAutomatic
+      Placement = Absolute
+      PlacementRectangle.Left = -1.000000000000000000
+      PlacementRectangle.Top = -1.000000000000000000
+      PlacementRectangle.Right = -1.000000000000000000
+      PlacementRectangle.Bottom = -1.000000000000000000
+      Size.Width = 640.000000000000000000
+      Size.Height = 75.000000000000000000
+      Size.PlatformDefault = False
+      object ToolbarPopupAnimation: TFloatAnimation
+        AnimationType = Out
+        Duration = 0.200000002980232200
+        Interpolation = Cubic
+        PropertyName = 'Position.Y'
+        StartValue = 0.000000000000000000
+        StopValue = 0.000000000000000000
+        Trigger = 'IsOpen=true'
+        TriggerInverse = 'IsOpen=false'
+      end
+      object ToolBar1: TToolBar
+        StyleName = 'StyleBook1'
+        Align = Client
+        Padding.Left = 50.000000000000000000
+        Padding.Top = 5.000000000000000000
+        Padding.Right = 50.000000000000000000
+        Size.Width = 640.000000000000000000
+        Size.Height = 75.000000000000000000
+        Size.PlatformDefault = False
+        object ToolbarApplyButton: TButton
+          Align = Left
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.X = 141.000000000000000000
+          Position.Y = 10.000000000000000000
+          Size.Width = 80.000000000000000000
+          Size.Height = 60.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'applybuttontext'
+          Text = 'Apply'
+        end
+        object ToolbarCloseButton: TButton
+          Align = Right
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.X = 505.000000000000000000
+          Position.Y = 10.000000000000000000
+          Size.Width = 80.000000000000000000
+          Size.Height = 60.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'closebuttontext'
+          Text = 'Close App'
+        end
+        object ToolbarAddButton: TButton
+          Align = Left
+          Margins.Left = 5.000000000000000000
+          Margins.Top = 5.000000000000000000
+          Margins.Right = 5.000000000000000000
+          Margins.Bottom = 5.000000000000000000
+          Position.X = 55.000000000000000000
+          Position.Y = 10.000000000000000000
+          Size.Width = 76.000000000000000000
+          Size.Height = 60.000000000000000000
+          Size.PlatformDefault = False
+          StyleLookup = 'addbuttontext'
+          Text = 'Add'
+        end
+      end
+    end
+  end
+  object TabControl1: TTabControl
+    Align = Right
+    Position.X = 328.000000000000000000
+    Size.Width = 312.000000000000000000
+    Size.Height = 595.000000000000000000
+    Size.PlatformDefault = False
+    TabIndex = 0
+    TabOrder = 2
+    TabPosition = PlatformDefault
+    object TabItem1: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = True
+      Size.Width = 44.000000000000000000
+      Size.Height = 24.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = #30331#37682
+      object Button1: TButton
+        Position.X = 56.000000000000000000
+        Position.Y = 72.000000000000000000
+        TabOrder = 0
+        Text = 'Open'
+        OnClick = Button1Click
+      end
+      object Button2: TButton
+        Position.X = 56.000000000000000000
+        Position.Y = 160.000000000000000000
+        TabOrder = 1
+        Text = #31639#20986
+        OnClick = Button2Click
+      end
+      object Edit1: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 2
+        Position.X = 72.000000000000000000
+        Position.Y = 112.000000000000000000
+      end
+      object Label1: TLabel
+        Position.X = 24.000000000000000000
+        Position.Y = 112.000000000000000000
+        Size.Width = 41.000000000000000000
+        Size.Height = 17.000000000000000000
+        Size.PlatformDefault = False
+        Text = 'Name'
+      end
+      object Button3: TButton
+        Position.X = 56.000000000000000000
+        Position.Y = 208.000000000000000000
+        TabOrder = 4
+        Text = #30331#37682
+      end
+    end
+    object TabItem2: TTabItem
+      CustomIcon = <
+        item
+        end>
+      IsSelected = False
+      Size.Width = 65.000000000000000000
+      Size.Height = 24.000000000000000000
+      Size.PlatformDefault = False
+      TabOrder = 0
+      Text = #12510#12483#12481#12531#12464
+      object ListBox1: TListBox
+        Position.X = 40.000000000000000000
+        Position.Y = 296.000000000000000000
+        TabOrder = 0
+        DisableFocusEffect = True
+        DefaultItemStyles.ItemStyle = ''
+        DefaultItemStyles.GroupHeaderStyle = ''
+        DefaultItemStyles.GroupFooterStyle = ''
+      end
+      object Button4: TButton
+        Position.X = 23.000000000000000000
+        Position.Y = 42.000000000000000000
+        TabOrder = 1
+        Text = #12487#12540#12479#21628#12403#20986#12375
+      end
+      object Button5: TButton
+        Position.X = 23.000000000000000000
+        Position.Y = 90.000000000000000000
+        TabOrder = 2
+        Text = 'Open'
+      end
+      object Edit2: TEdit
+        Touch.InteractiveGestures = [LongTap, DoubleTap]
+        TabOrder = 3
+        Position.X = 120.000000000000000000
+        Position.Y = 136.000000000000000000
+      end
+      object Button6: TButton
+        Position.X = 24.000000000000000000
+        Position.Y = 136.000000000000000000
+        TabOrder = 4
+        Text = #12510#12483#12481#12531#12464
+        OnClick = Button6Click
+      end
+    end
+  end
+  object Image1: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 24.000000000000000000
+    Position.Y = 224.000000000000000000
+    Size.Width = 129.000000000000000000
+    Size.Height = 145.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Image2: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 176.000000000000000000
+    Position.Y = 224.000000000000000000
+    Size.Width = 137.000000000000000000
+    Size.Height = 145.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object Image3: TImage
+    MultiResBitmap = <
+      item
+      end>
+    Position.X = 24.000000000000000000
+    Position.Y = 384.000000000000000000
+    Size.Width = 290.000000000000000000
+    Size.Height = 170.000000000000000000
+    Size.PlatformDefault = False
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 200
+    Top = 224
+  end
+end
