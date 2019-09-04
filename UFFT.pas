@@ -38,7 +38,6 @@ var
   s, Fr, Fi, Fr2, Fi2: TFFTData;
   j: integer;
   i: integer;
-  k: integer;
 begin
   SetLength(s, n);
   SetLength(OutRe, n, n);
@@ -48,14 +47,13 @@ begin
     for i := 0 to n - 1 do
       s[i] := InRe2d[i, j];
     fft(s, Fr, Fi);
-    k := High(Fr);
-    for i := 0 to k do
+    for i := 0 to n - 1 do
     begin
       OutRe[i, j] := Fr[i];
       OutIm[i, j] := Fi[i];
     end;
   end;
-  for i := 0 to k do
+  for i := 0 to n - 1 do
   begin
     for j := 0 to n - 1 do
       s[j] := OutRe[i, j];
@@ -63,16 +61,10 @@ begin
     for j := 0 to n - 1 do
       s[j] := OutIm[i, j];
     fft(s, Fr2, Fi2);
-    k := High(Fr);
-    for j := 0 to k do
+    for j := 0 to n - 1 do
     begin
       OutRe[i, j] := Fr[j] - Fi2[j];
       OutIm[i, j] := Fi[j] + Fr2[j];
-    end;
-    for j := k + 1 to n - 1 do
-    begin
-      OutRe[i, j] := 0.0;
-      OutIm[i, j] := 0.0;
     end;
   end;
   Finalize(s);

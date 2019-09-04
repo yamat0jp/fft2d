@@ -240,7 +240,7 @@ end;
 
 procedure TForm1.fft2D;
 const
-  GMAX = 256;
+  GMAX = 255;
   dRange = 60;
 var
   j: Integer;
@@ -289,7 +289,7 @@ begin
     begin
       a := sr[i, j] / GMAX;
       b := si[i, j] / GMAX;
-      c := a * a + b * b;
+      c := Abs(a * a - b * b);
       sr[i, j] := c;
       if c = 0.0 then
         db := 0.0
