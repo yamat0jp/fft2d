@@ -240,7 +240,7 @@ end;
 
 procedure TForm1.fft2D;
 const
-  GMAX = 266;
+  GMAX = 256;
   dRange = 60;
 var
   j: Integer;

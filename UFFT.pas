@@ -43,13 +43,12 @@ begin
   SetLength(s, n);
   SetLength(OutRe, n, n);
   SetLength(OutIm, n, n);
-  k:=0;
   for j := 0 to n - 1 do
   begin
     for i := 0 to n - 1 do
       s[i] := InRe2d[i, j];
     fft(s, Fr, Fi);
-    k:=High(Fi);
+    k := High(Fr);
     for i := 0 to k do
     begin
       OutRe[i, j] := Fr[i];
@@ -64,10 +63,16 @@ begin
     for j := 0 to n - 1 do
       s[j] := OutIm[i, j];
     fft(s, Fr2, Fi2);
-    for j := 0 to High(Fr2) do
+    k := High(Fr);
+    for j := 0 to k do
     begin
       OutRe[i, j] := Fr[j] - Fi2[j];
       OutIm[i, j] := Fi[j] + Fr2[j];
+    end;
+    for j := k + 1 to n - 1 do
+    begin
+      OutRe[i, j] := 0.0;
+      OutIm[i, j] := 0.0;
     end;
   end;
   Finalize(s);
@@ -86,7 +91,7 @@ begin
   InN := Length(InRe);
   // データ数が2の乗数に満たない場合は0のデータを追加する
   i := 1;
-  while InN > Power(2, i) do
+  while InN >= Power(2, i) do
     inc(i);
   n := trunc(IntPower(2, i));
   if InN < n then
