@@ -9,7 +9,7 @@ uses
   FMX.Gestures,
   FMX.StdCtrls, FMX.ListBox, FMX.Controls.Presentation, FMX.Edit,
   FMX.TabControl,
-  FMX.Objects;
+  FMX.Objects, UFFT;
 
 type
   TForm1 = class(TForm)
@@ -44,8 +44,8 @@ type
     procedure FormDestroy(Sender: TObject);
   private
     nx, ny: Integer;
-    sr, si: array of array of Double;
-    aPr, aPt: array of Double;
+    sr, si: TFFT2dData;
+    aPr, aPt: TFFTData;
     meanC1, meanC2: Double;
     procedure fft2D;
     procedure calcPolarSpectra;
@@ -64,13 +64,7 @@ implementation
 
 {$R *.fmx}
 
-uses FMX.Graphics, System.Math, Unit2, UFFT;
-
-procedure main(n: Integer; sr, si: PDouble); stdcall;
-  external 'CppMathLibrary.dll' name 'fft2d';
-
-procedure sortingLarge(a: Pointer; ID: Pointer; n: Integer); stdcall;
-  external 'CppMathLibrary.dll';
+uses FMX.Graphics, System.Math, Unit2;
 
 const
   maxRadius = 128;
@@ -246,7 +240,7 @@ end;
 
 procedure TForm1.fft2D;
 const
-  GMAX = 255;
+  GMAX = 266;
   dRange = 60;
 var
   j: Integer;
@@ -258,12 +252,11 @@ var
   a, b, c, max: Double;
   data: TBitmapData;
   col: TAlphaColorRec;
-  fft: Tfft;
+  s: TFFT2dData;
 begin
   nx := Image1.Bitmap.Width;
   ny := Image1.Bitmap.Height;
-  SetLength(sr, nx, ny);
-  SetLength(si, nx, ny);
+  SetLength(s, nx, ny);
   Image1.Bitmap.Map(TMapAccess.ReadWrite, data);
   try
     for j := 0 to ny - 1 do
@@ -281,19 +274,14 @@ begin
         col.G := gray;
         col.b := gray;
         data.SetPixel(i, j, col.Color);
-        sr[i, j] := light;
-        si[i, j] := 0.0;
+        s[i, j] := light;
       end;
+    meanC1 := meanC1 / (nx * ny);
+    meanC2 := meanC2 / (nx * ny);
+    UFFT.fft2D(nx, s, sr, si);
   finally
     Image1.Bitmap.Unmap(data);
-  end;
-  meanC1 := meanC1 / (nx * ny);
-  meanC2 := meanC2 / (nx * ny);
-  fft := Tfft.Create;
-  try
-    fft.fft2D(nx, PDouble(sr), PDouble(si));
-  finally
-    fft.Free;
+    Finalize(s);
   end;
   max := 0.0;
   for j := 0 to ny - 1 do
