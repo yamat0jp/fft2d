@@ -330,7 +330,7 @@ begin
     for j := 0 to ny - 1 do
       for i := 0 to nx - 1 do
       begin
-        gray := Trunc(255.0 * sr[i, j] / max); //si
+        gray := Trunc(255.0 * si[i, j] / max); //si
         col.R := gray;
         col.G := gray;
         col.b := gray;

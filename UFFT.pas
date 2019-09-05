@@ -46,6 +46,7 @@ begin
   begin
     for i := 0 to n - 1 do
       s[i] := InRe2d[i, j];
+    winHanning(s);
     fft(s, Fr, Fi);
     for i := 0 to n - 1 do
     begin
@@ -57,9 +58,11 @@ begin
   begin
     for j := 0 to n - 1 do
       s[j] := OutRe[i, j];
+    winHanning(s);
     fft(s, Fr, Fi);
     for j := 0 to n - 1 do
       s[j] := OutIm[i, j];
+    winHanning(s);
     fft(s, Fr2, Fi2);
     for j := 0 to n - 1 do
     begin
