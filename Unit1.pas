@@ -175,7 +175,7 @@ begin
   aPt[0] := (Pt[0] + Pt[1]) / 2.0;
   aPr[maxRadius - 1] := (Pr[maxRadius - 2] + Pr[maxRadius - 1]) / 2.0;
   aPt[maxTheta - 1] := (Pt[maxTheta - 2] + Pt[maxTheta - 1]) / 2.0;
-  for i := 1 to maxRadius - 2 do
+  for i := 2 to maxRadius - 2 do
     aPr[i] := (Pr[i - 1] + Pr[i] + Pr[i + 1]) / 3.0;
   for i := 2 to maxTheta - 2 do
     aPt[i] := (Pt[i - 1] + Pt[i] + Pt[i + 1]) / 3.0;
@@ -330,7 +330,7 @@ begin
     for j := 0 to ny - 1 do
       for i := 0 to nx - 1 do
       begin
-        gray := Trunc(255.0 * si[i, j] / max);
+        gray := Trunc(255.0 * sr[i, j] / max); //si
         col.R := gray;
         col.G := gray;
         col.b := gray;
