@@ -159,7 +159,7 @@ begin
   for i := 0 to maxTheta - 1 do
     Pt[i] := 0.0;
   for j := 0 to (ny div 2) + 10 do
-    for i := 0 to (nx div 2) + 10 do
+    for i := 0 to nx - 1 do
     begin
       x := i - nx / 2;
       y := ny / 2 - j;
@@ -167,17 +167,17 @@ begin
       th := Trunc(ArcTan2(y, x) * 180.0 / pi + 0.5);
       if (rr <> 0) and (rr < maxRadius) and (th >= 0) and (th < maxTheta) then
       begin
-        Pr[rr] := Pr[rr] + si[i, j];
-        Pt[th] := Pt[th] + si[i, j];
+        Pr[rr] := Pr[rr] + sr[i, j]; //si
+        Pt[th] := Pt[th] + sr[i, j]; //si
       end;
     end;
   aPr[0] := (Pr[0] + Pr[1]) / 2.0;
   aPt[0] := (Pt[0] + Pt[1]) / 2.0;
   aPr[maxRadius - 1] := (Pr[maxRadius - 2] + Pr[maxRadius - 1]) / 2.0;
   aPt[maxTheta - 1] := (Pt[maxTheta - 2] + Pt[maxTheta - 1]) / 2.0;
-  for i := 0 to maxRadius - 1 do
+  for i := 1 to maxRadius - 2 do
     aPr[i] := (Pr[i - 1] + Pr[i] + Pr[i + 1]) / 3.0;
-  for i := 0 to maxTheta - 1 do
+  for i := 2 to maxTheta - 2 do
     aPt[i] := (Pt[i - 1] + Pt[i] + Pt[i + 1]) / 3.0;
   max := 0.0;
   for i := 0 to maxRadius - 1 do
@@ -186,10 +186,10 @@ begin
   for i := 0 to maxRadius - 1 do
     aPr[i] := aPr[i] / max;
   max := 0.0;
-  for i := 0 to maxTheta - 1 do
+  for i := 1 to maxTheta - 2 do
     if aPt[i] > max then
       max := aPt[i];
-  for i := 0 to maxTheta - 1 do
+  for i := 1 to maxTheta - 1 do
     aPt[i] := aPt[i] / max;
   Finalize(sr);
   Finalize(si);
@@ -220,9 +220,7 @@ begin
     for i := 1 to maxRadius - 1 do
       DrawLine(PointF(x0 + i - 1, y0 - aPr[i - 1] * h),
         PointF(x0 + i, y0 - aPr[i] * h), 1);
-    h := Image3.Bitmap.Height - 50;
     x0 := 60 + maxRadius;
-    y0 := Image3.Bitmap.Height - 20;
     FillText(RectF(x0, 0, x0 + 20, 20), 'q(É∆)', false, 1, [],
       TTextAlign.Center);
     DrawLine(PointF(x0, y0), PointF(x0 + maxTheta / 2 + 10, y0), 1);
@@ -240,8 +238,8 @@ end;
 
 procedure TForm1.fft2D;
 const
-  GMAX = 255;
-  dRange = 60;
+  GMAX = 256.0;
+  dRange = 60.0;
 var
   j: Integer;
   i: Integer;
@@ -249,7 +247,7 @@ var
   rr, gg, bb: Double;
   light: Double;
   db: Double;
-  a, b, c, max: Double;
+  a, b, c, max, max0: Double;
   data: TBitmapData;
   col: TAlphaColorRec;
   s: TFFT2dData;
@@ -284,12 +282,13 @@ begin
     Finalize(s);
   end;
   max := 0.0;
+  max0 := 0.0;
   for j := 0 to ny - 1 do
     for i := 0 to nx - 1 do
     begin
       a := sr[i, j] / GMAX;
       b := si[i, j] / GMAX;
-      c := Abs(a * a - b * b);
+      c := a * a + b * b;
       sr[i, j] := c;
       if c = 0.0 then
         db := 0.0
@@ -300,6 +299,8 @@ begin
       if max < db then
         max := db;
       si[i, j] := db;
+      if max0 < c then
+        max0 := c;
     end;
   for j := 0 to (ny div 2) - 1 do
   begin

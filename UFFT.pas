@@ -80,7 +80,7 @@ var
   InN: integer; // 入力データ数
   n: integer; // 補正後データ数
 begin
-  InN := Length(InRe);
+  InN := Length(InRe);       InN:=128;
   // データ数が2の乗数に満たない場合は0のデータを追加する
   i := 1;
   while InN >= Power(2, i) do
