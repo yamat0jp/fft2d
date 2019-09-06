@@ -49,17 +49,17 @@ begin
     fft(s, Fr, Fi);
     for i := 0 to n - 1 do
     begin
-      OutRe[i, j] := Fr[i] / n;
-      OutIm[i, j] := Fi[i] / n;
+      OutRe[i, j] := Fr[i];
+      OutIm[i, j] := Fi[i];
     end;
   end;
   for i := 0 to n - 1 do
   begin
     for j := 0 to n - 1 do
-      s[j] := OutRe[i, j] / n;
+      s[j] := OutRe[i, j];
     fft(s, Fr, Fi);
     for j := 0 to n - 1 do
-      s[j] := OutIm[i, j] / n;
+      s[j] := OutIm[i, j];
     fft(s, Fr2, Fi2);
     for j := 0 to n - 1 do
     begin
@@ -176,8 +176,8 @@ begin
   SetLength(OutIm, Length(InIm) div 2);
   for i := 0 to (n div 2) - 1 do
   begin
-    OutRe[i] := InRe[i]; // ŽÀ•”
-    OutIm[i] := InIm[i]; // ‹••”
+    OutRe[i] := InRe[i] / 128; // ŽÀ•”
+    OutIm[i] := InIm[i] / 128; // ‹••”
   end;
 end;
 
