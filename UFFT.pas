@@ -46,23 +46,20 @@ begin
   begin
     for i := 0 to n - 1 do
       s[i] := InRe2d[i, j];
-    winHanning(s);
     fft(s, Fr, Fi);
     for i := 0 to n - 1 do
     begin
-      OutRe[i, j] := Fr[i];
-      OutIm[i, j] := Fi[i];
+      OutRe[i, j] := Fr[i] / n;
+      OutIm[i, j] := Fi[i] / n;
     end;
   end;
   for i := 0 to n - 1 do
   begin
     for j := 0 to n - 1 do
-      s[j] := OutRe[i, j];
-    winHanning(s);
+      s[j] := OutRe[i, j] / n;
     fft(s, Fr, Fi);
     for j := 0 to n - 1 do
-      s[j] := OutIm[i, j];
-    winHanning(s);
+      s[j] := OutIm[i, j] / n;
     fft(s, Fr2, Fi2);
     for j := 0 to n - 1 do
     begin
@@ -83,7 +80,9 @@ var
   InN: integer; // 入力データ数
   n: integer; // 補正後データ数
 begin
-  InN := Length(InRe);       InN:=128;
+  WinHanning(InRe);
+  InN := Length(InRe);
+  InN := 128;
   // データ数が2の乗数に満たない場合は0のデータを追加する
   i := 1;
   while InN >= Power(2, i) do

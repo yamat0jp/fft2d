@@ -107,8 +107,7 @@ var
   ID: array [0 .. numEntry - 1] of Integer;
   fv: array [0 .. numEntry - 1] of TFeatureVector;
 begin
-  fft2D;
-  calcPolarSpectra;
+  Button2Click(Sender);
   for k := 0 to numEntry - 1 do
   begin
     distR := 0.0;
@@ -330,7 +329,7 @@ begin
     for j := 0 to ny - 1 do
       for i := 0 to nx - 1 do
       begin
-        gray := Trunc(255.0 * si[i, j] / max); //si
+        gray := Trunc(255.0 * si[i, j] / max); //sr, max0
         col.R := gray;
         col.G := gray;
         col.b := gray;
